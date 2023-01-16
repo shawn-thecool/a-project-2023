@@ -14,13 +14,14 @@ export const AppHeader = styled.header`
   flex-shrink: 0;
   height: 56px;
   padding: 0 16px;
+  border-bottom: 1px solid var(--brand_black_300);
 `;
 export const AppMain = styled.main`
   flex: 1;
   overflow: overlay;
   display: flex;
   flex-flow: column;
-  background-color: var(--brand_black_300);
+  border-bottom: 1px solid var(--brand_black_100);
 `;
 export const AppFooter = styled.footer`
   display: flex;
@@ -29,35 +30,5 @@ export const AppFooter = styled.footer`
   flex-shrink: 0;
   height: 32px;
   padding: 0 16px;
-  background-color: gold;
+  background-color: var(--brand_black_300);
 `;
-export const AppNav = styled.nav<{ open: boolean }>`
-  position: fixed;
-  z-index: 100;
-  overflow: overlay;
-  display: flex;
-  flex-flow: row;
-  height: 100vh;
-  background-color: skyblue;
-  transition: all 0.2s var(--ease-in);
-  ${({ open }) =>
-    open
-      ? css`
-          width: 240px;
-          &::before {
-            content: "";
-            position: fixed;
-            z-index: 99;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            opacity: 0.5;
-            background-color: #000;
-          }
-        `
-      : css`
-          width: 0;
-        `};
-`;
-export const AppAside = styled.aside``;

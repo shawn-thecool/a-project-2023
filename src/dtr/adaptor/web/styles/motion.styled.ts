@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 
 export const MovementCss = css`
+  --ease-nav: cubic-bezier(0.05, 0, 0, 1);
   --linear: cubic-bezier(0.25, 0.25, 0.75, 0.75);
   --ease-in: cubic-bezier(0.42, 0, 1, 1);
   --ease-in-quad: cubic-bezier(0.11, 0, 0.5, 0);

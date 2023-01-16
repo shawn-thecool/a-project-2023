@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import Nav, { useNav, NavBtn } from "@/dtr/adaptor/web/features/nav";
 import * as Layout from "@/dtr/adaptor/web/styles/layout.styled";
-import { AppNav, AppNavBtn } from "@/dtr/adaptor/web/components/nav/AppNav";
-import { useNav } from "@/dtr/adaptor/web/hooks";
+import { ClassCard } from "@/dtr/adaptor/web/features/card/ClassCard";
 
 export default function Home() {
   const list = Array.from({ length: 20 }, (_, idx) => idx);
@@ -16,9 +14,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout.AppHeader>
-        <AppNavBtn handler={navHook.onOpen} />
+        <NavBtn onClick={navHook.onOpenNav} />
+        <h1>LOGO</h1>
+        <h2>Index Page</h2>
       </Layout.AppHeader>
-      <AppNav hook={navHook} />
+      <Nav navHook={navHook} />
       <Layout.AppMain>
         <div
           style={{
@@ -38,9 +38,26 @@ export default function Home() {
                 alignItems: "center",
                 width: "50vw",
                 height: "50vh",
-                background: "#fff",
+                backgroundColor: "var(--brand_yellow_300)",
+                border: "1px solid #000",
               }}
             >
+              <ClassCard
+                name="User"
+                attrs={[
+                  ["private", "_id", "string"],
+                  ["private", "_name", "string"],
+                  ["private", "_age", "number"],
+                  ["public", "id", "string"],
+                  ["public", "name", "string"],
+                  ["public", "age", "number"],
+                ]}
+                methods={[
+                  ["public", "verifyName", "boolean"],
+                  ["public", "verifyAge", "boolean"],
+                  ["public", "validate", "boolean"],
+                ]}
+              />
               {v}
             </div>
           ))}

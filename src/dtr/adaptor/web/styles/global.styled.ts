@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { ColorCss, ShadowCss } from "./color.styled";
 import { FontCss } from "./font.styled";
-import { MovementCss } from "./movement.styled";
+import { MovementCss } from "./motion.styled";
 
 export const GlobalStyle = createGlobalStyle`
 :root{
