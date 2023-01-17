@@ -3,10 +3,19 @@ import Nav, { useNav, NavBtn } from "@/dtr/adaptor/web/features/nav";
 import * as Layout from "@/dtr/adaptor/web/styles/layout.styled";
 import { ClassCard } from "@/dtr/adaptor/web/features/card/ClassCard";
 import { AppLogo } from "@/dtr/adaptor/web/components/Logo";
+import UserEntity from "@/dtr/domain/entities/User.entity";
 
 export default function Home() {
   const list = Array.from({ length: 20 }, (_, idx) => idx);
   const navHook = useNav();
+  const user = new UserEntity({
+    id: "1",
+    type: "viewer",
+    name: Array.from({ length: 58 }, (_, idx) => 1).join(""),
+    email: "shawn-dev@naver.com",
+  });
+  console.log(user);
+  user.validate();
   return (
     <Layout.AppDocument>
       <Head>
@@ -52,29 +61,7 @@ export default function Home() {
             ))}
           </div>
         </Layout.AppMain>
-        <Layout.AppFooter>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-          <div>footer</div>
-        </Layout.AppFooter>
+        <Layout.AppFooter>footer</Layout.AppFooter>
       </Layout.AppContent>
     </Layout.AppDocument>
   );
