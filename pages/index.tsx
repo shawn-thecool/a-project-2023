@@ -4,18 +4,23 @@ import * as Layout from "@/dtr/adaptor/web/styles/layout.styled";
 import { ClassCard } from "@/dtr/adaptor/web/features/card/ClassCard";
 import { AppLogo } from "@/dtr/adaptor/web/components/Logo";
 import UserEntity from "@/dtr/domain/entities/User.entity";
+import { useEffect } from "react";
 
 export default function Home() {
   const list = Array.from({ length: 20 }, (_, idx) => idx);
   const navHook = useNav();
-  const user = new UserEntity({
-    id: "1",
-    type: "viewer",
-    name: Array.from({ length: 58 }, (_, idx) => 1).join(""),
-    email: "shawn-dev@naver.com",
-  });
-  console.log(user);
-  user.validate();
+
+  useEffect(() => {
+    const user = new UserEntity({
+      id: "1",
+      type: "viewer",
+      name: Array.from({ length: 58 }, (_, idx) => 1).join(""),
+      email: "shawn-dev@naver.com",
+    });
+    console.log(user);
+    user.validate();
+  }, []);
+
   return (
     <Layout.AppDocument>
       <Head>

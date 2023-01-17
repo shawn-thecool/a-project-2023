@@ -1,6 +1,7 @@
 import {
   UserEmailEmptyException,
   UserEmailFormatException,
+  UserEntityValidateException,
   UserNameEmptyException,
   UserNameOverflowException,
 } from "../exception";
@@ -89,11 +90,15 @@ export default class UserEntity {
     return true;
   }
   public validate(): boolean {
-    return [
+    const checklist = [
       this.verifyId(),
       this.verifyType(),
       this.verifyName(),
       this.verifyEmail(),
-    ].every((v) => !!v);
+    ];
+    if (!checklist.every((v) => !!v)) {
+      return new UserEntityValidateException().log().passWithValue(false);
+    }
+    return true;
   }
 }

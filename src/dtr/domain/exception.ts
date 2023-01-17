@@ -47,6 +47,11 @@ export class BaseIdVoValidateException extends BaseException {
 }
 export class UserTypeEnumValidateException extends BaseException {
   constructor() {
-    super({ code: "5", msg: "UserTypeEnumValidateException" });
+    super({ code: "6", msg: "UserTypeEnumValidateException" });
+  }
+}
+export class UserEntityValidateException extends BaseException {
+  constructor() {
+    super({ code: "7", msg: "UserEntityValidateException" });
   }
 }
