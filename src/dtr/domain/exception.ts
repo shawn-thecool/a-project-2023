@@ -4,12 +4,14 @@ export interface IBaseException {
 }
 
 export default class BaseException {
-  private _code: string;
-  private _msg: string;
   constructor(data: IBaseException) {
     this._code = data.code;
     this._msg = data.msg;
   }
+
+  private _code: IBaseException["code"];
+  private _msg: IBaseException["msg"];
+
   public log(): BaseException {
     console.error([this._code, this._msg].join(" "));
     return this;
