@@ -1,10 +1,11 @@
+import { UserTypeEnumValidateException } from "../../exception";
 import BaseEnum from "./Base.enum";
 
 export class UserTypeEnum extends BaseEnum {
   public static VIEWER = "viewer";
   public static ADMIN = "admin";
   public static OWNER = "owner";
-  
+
   public isViewer(): boolean {
     return this.value === UserTypeEnum.VIEWER;
   }
@@ -15,10 +16,14 @@ export class UserTypeEnum extends BaseEnum {
     return this.value === UserTypeEnum.OWNER;
   }
   public validate(): boolean {
-    return [
+    const checklist = [
       UserTypeEnum.VIEWER,
       UserTypeEnum.ADMIN,
       UserTypeEnum.OWNER,
-    ].includes(this.value);
+    ];
+    if (!checklist.includes(this.value)) {
+      return new UserTypeEnumValidateException().log().passWithValue(false);
+    }
+    return true;
   }
 }

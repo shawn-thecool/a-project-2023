@@ -1,4 +1,4 @@
-export default class BaseIdStr {
+export default class BaseIdStrVo {
   constructor(id: string) {
     this._value = id;
   }
@@ -11,7 +11,7 @@ export default class BaseIdStr {
   }
 }
 
-export class UserIdVO extends BaseIdStr {
+export class UserIdVo extends BaseIdStrVo {
   public get valueWithSimpleHash(): string {
     return ["#", ...this.value.split("").reverse()].join("");
   }

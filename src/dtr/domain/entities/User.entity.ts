@@ -1,6 +1,11 @@
-import { UserNameOverflowException } from "../exception";
+import {
+  UserEmailEmptyException,
+  UserEmailFormatException,
+  UserNameEmptyException,
+  UserNameOverflowException,
+} from "../exception";
 import { USER_EMAIL_REGEX, USER_NAME_MAX } from "../policy";
-import { UserIdVO } from "../valueObjects/BaseIdStr.vo";
+import { UserIdVo } from "../valueObjects/BaseIdStr.vo";
 import { UserTypeEnum } from "../valueObjects/enums/User.enum";
 
 export interface IUserEntity {
@@ -15,7 +20,7 @@ export interface IUserEntity {
 
 export default class UserEntity {
   constructor(data: IUserEntity) {
-    this._id = new UserIdVO(data.id);
+    this._id = new UserIdVo(data.id);
     this._type = new UserTypeEnum(data.type);
     this._name = data.name;
     this._email = data.email;
@@ -23,15 +28,15 @@ export default class UserEntity {
     this._updatedAt = data.updatedAt || "";
     this._deletedAt = data.deletedAt || "";
   }
-  private _id: UserIdVO;
+  private _id: UserIdVo;
   private _type: UserTypeEnum;
-  private _name: IUserEntity["id"];
-  private _email: string;
-  private _createdAt: string;
-  private _updatedAt: string;
-  private _deletedAt: string;
+  private _name: IUserEntity["name"];
+  private _email: IUserEntity["email"];
+  private _createdAt: IUserEntity["createdAt"];
+  private _updatedAt: IUserEntity["updatedAt"];
+  private _deletedAt: IUserEntity["deletedAt"];
 
-  public get idVO(): UserIdVO {
+  public get idVO(): UserIdVo {
     return this._id;
   }
   public get typeEnum(): UserTypeEnum {
@@ -49,13 +54,13 @@ export default class UserEntity {
   public get email(): IUserEntity["email"] {
     return this._email;
   }
-  public get createdAt(): string {
+  public get createdAt(): IUserEntity["createdAt"] {
     return this._createdAt;
   }
-  public get updatedAt(): string {
+  public get updatedAt(): IUserEntity["updatedAt"] {
     return this._updatedAt;
   }
-  public get deletedAt(): string {
+  public get deletedAt(): IUserEntity["deletedAt"] {
     return this._deletedAt;
   }
 
@@ -67,7 +72,7 @@ export default class UserEntity {
   }
   public verifyName(): boolean {
     if (!this.name) {
-      return false;
+      return new UserNameEmptyException().log().passWithValue(false);
     }
     if (this.name.length > USER_NAME_MAX) {
       return new UserNameOverflowException().log().passWithValue(false);
@@ -75,8 +80,12 @@ export default class UserEntity {
     return true;
   }
   public verifyEmail(): boolean {
-    if (!this.email) return false;
-    if (!USER_EMAIL_REGEX.test(this.email)) return false;
+    if (!this.email) {
+      return new UserEmailEmptyException().log().passWithValue(false);
+    }
+    if (!USER_EMAIL_REGEX.test(this.email)) {
+      return new UserEmailFormatException().log().passWithValue(false);
+    }
     return true;
   }
   public validate(): boolean {
