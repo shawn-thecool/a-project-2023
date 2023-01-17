@@ -1,21 +1,24 @@
 import Link from "next/link";
+import { AppLogo } from "../../components/Logo";
 import { NAV_LIST } from "../../config/constants";
 import * as UI from "./Nav.styled";
 
 export const Nav = ({ navHook }: { navHook: any }) => {
-  console.log(navHook);
   return (
     <>
       <UI.NavWrap isOpen={navHook.isOpen} isMove={navHook.isMove}>
         <UI.NavInner isOpen={navHook.isOpen}>
           <UI.NavHead>
             <NavBtn onClick={navHook.onCloseNavDelay} />
-            <Logo />
+            <AppLogo />
           </UI.NavHead>
           <UI.NavCont>
             <NavList />
           </UI.NavCont>
-          <UI.NavFoot>v0.00000001</UI.NavFoot>
+          <UI.NavFoot>
+            <small>© 2023. shawn-dev</small>
+            <small>v.alpha.0.0.0.1</small>
+          </UI.NavFoot>
         </UI.NavInner>
         <UI.NavDimmed
           isOpen={navHook.isOpen}
@@ -27,14 +30,7 @@ export const Nav = ({ navHook }: { navHook: any }) => {
 };
 
 export const NavBtn = ({ onClick }: { onClick: () => void }) => {
-  return <UI.NavBtn onClick={onClick}>menu</UI.NavBtn>;
-};
-const Logo = () => {
-  return (
-    <>
-      <h1>LOGO</h1>
-    </>
-  );
+  return <UI.NavBtn onClick={onClick}>Nav</UI.NavBtn>;
 };
 
 const NavList = () => {

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Nav, { useNav, NavBtn } from "@/dtr/adaptor/web/features/nav";
 import * as Layout from "@/dtr/adaptor/web/styles/layout.styled";
 import { ClassCard } from "@/dtr/adaptor/web/features/card/ClassCard";
+import { AppLogo } from "@/dtr/adaptor/web/components/Logo";
 
 export default function Home() {
   const list = Array.from({ length: 20 }, (_, idx) => idx);
@@ -15,34 +16,24 @@ export default function Home() {
       </Head>
       <Layout.AppHeader>
         <NavBtn onClick={navHook.onOpenNav} />
-        <h1>LOGO</h1>
-        <h2>Index Page</h2>
+        <AppLogo />
+        <a>Index Page</a>
       </Layout.AppHeader>
       <Nav navHook={navHook} />
-      <Layout.AppMain>
-        <div
-          style={{
-            display: "flex",
-            flexFlow: "column",
-            gap: "12px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {list.map((v) => (
-            <div
-              key={v}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "50vw",
-                height: "50vh",
-                backgroundColor: "var(--brand_yellow_300)",
-                border: "1px solid #000",
-              }}
-            >
+      <Layout.AppContent>
+        <Layout.AppMain>
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "row wrap",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {list.map((v) => (
               <ClassCard
+                key={v}
                 name="User"
                 attrs={[
                   ["private", "_id", "string"],
@@ -58,12 +49,33 @@ export default function Home() {
                   ["public", "validate", "boolean"],
                 ]}
               />
-              {v}
-            </div>
-          ))}
-        </div>
-      </Layout.AppMain>
-      <Layout.AppFooter>footer</Layout.AppFooter>
+            ))}
+          </div>
+        </Layout.AppMain>
+        <Layout.AppFooter>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+          <div>footer</div>
+        </Layout.AppFooter>
+      </Layout.AppContent>
     </Layout.AppDocument>
   );
 }
