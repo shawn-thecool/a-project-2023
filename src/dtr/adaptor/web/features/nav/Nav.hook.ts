@@ -1,27 +1,15 @@
 import { useState } from "react";
 
-export const useNav = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isMove, setIsMove] = useState<boolean>(false);
+export interface IUseNavReq {}
+export interface IUseNavRes {
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
 
-  const onOpenNav = () => setIsOpen(true);
-  const onCloseNav = () => setIsOpen(false);
-  const onCloseNavDelay = () => {
-    setIsOpen(false);
-    setIsMove(true);
-    const delay = setTimeout(() => {
-      setIsMove(false);
-      clearTimeout(delay);
-    }, 200);
-  };
-
-  return {
-    isOpen,
-    isMove,
-    onOpenNav,
-    onCloseNav,
-    onCloseNavDelay,
-  };
+export const useNav = ({}: IUseNavReq = {}): IUseNavRes => {
+  const [open, setOpen] = useState<boolean>(false);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return { open, onOpen, onClose };
 };
-
-

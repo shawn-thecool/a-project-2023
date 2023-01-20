@@ -6,8 +6,7 @@ import {
   UserNameOverflowException,
 } from "../exception";
 import { USER_EMAIL_REGEX, USER_NAME_MAX } from "../policy";
-import { UserIdVo } from "../valueObjects/BaseIdStr.vo";
-import { UserTypeEnum } from "../valueObjects/enums/User.enum";
+import { UserIdVo, UserTypeEnum } from "../valueObjects";
 
 export interface IUserEntity {
   id: string;
@@ -37,14 +36,14 @@ export default class UserEntity {
   private _updatedAt: IUserEntity["updatedAt"];
   private _deletedAt: IUserEntity["deletedAt"];
 
-  public get idVO(): UserIdVo {
+  public get idVo(): UserIdVo {
     return this._id;
   }
   public get typeEnum(): UserTypeEnum {
     return this._type;
   }
   public get id(): IUserEntity["id"] {
-    return this.idVO.value;
+    return this.idVo.value;
   }
   public get type(): IUserEntity["type"] {
     return this.typeEnum.value;
@@ -66,7 +65,7 @@ export default class UserEntity {
   }
 
   public verifyId(): boolean {
-    return this.idVO.validate();
+    return this.idVo.validate();
   }
   public verifyType(): boolean {
     return this.typeEnum.validate();

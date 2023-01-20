@@ -55,3 +55,18 @@ export class UserEntityValidateException extends BaseException {
     super({ code: "7", msg: "UserEntityValidateException" });
   }
 }
+export class SiteStatusValidateException extends BaseException {
+  constructor() {
+    super({ code: "8", msg: "SiteStatusValidateException" });
+  }
+}
+export class SitePlatformValidateException extends BaseException {
+  constructor() {
+    super({ code: "9", msg: "SitePlatformValidateException" });
+  }
+}
+export class SiteEntityValidateException extends BaseException {
+  constructor() {
+    super({ code: "10", msg: "SiteEntityValidateException" });
+  }
+}

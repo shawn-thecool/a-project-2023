@@ -16,12 +16,7 @@ export class UserTypeEnum extends BaseEnum {
     return this.value === UserTypeEnum.OWNER;
   }
   public validate(): boolean {
-    const checklist = [
-      UserTypeEnum.VIEWER,
-      UserTypeEnum.ADMIN,
-      UserTypeEnum.OWNER,
-    ];
-    if (!checklist.includes(this.value)) {
+    if (!Object.values(UserTypeEnum).includes(this.value)) {
       return new UserTypeEnumValidateException().log().passWithValue(false);
     }
     return true;

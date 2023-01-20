@@ -5,5 +5,5 @@ export const Z_INDEX = {
 
 export const NAV_LIST = {
   index: "/",
-  about: "/about",
+  sites: "/sites",
 };

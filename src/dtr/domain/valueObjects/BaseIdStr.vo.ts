@@ -16,6 +16,11 @@ export default class BaseIdStrVo {
 
 export class UserIdVo extends BaseIdStrVo {
   public get valueWithSimpleHash(): string {
-    return ["#", ...this.value.split("").reverse()].join("");
+    return ["#user_", ...this.value.split("").reverse()].join("");
+  }
+}
+export class SiteIdVo extends BaseIdStrVo {
+  public get valueWithSimpleHash(): string {
+    return ["#site_", ...this.value.split("").reverse()].join("");
   }
 }
