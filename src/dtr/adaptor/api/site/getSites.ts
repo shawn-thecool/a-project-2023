@@ -1,7 +1,6 @@
-import { SiteStatusEnum, SitePlatformEnum } from "@/dtr/domain/valueObjects";
-import { randomId, randomPickEnum, randomStr, randomUrl } from "@/dtr/utils";
 import { IResBase } from "../http";
 import { ISite } from "./getSite";
+import { fake_site_table } from "../_fake_db/sites";
 
 export interface IReqGetSites {
   page_no: number;
@@ -22,13 +21,7 @@ export const reqGetSites = (req: IReqGetSites): IResGetSites => {
     data: {
       page_no: req.page_no,
       page_size: req.page_size,
-      sites: Array.from({ length: req.page_size }, () => ({
-        site_id: randomId(),
-        status: randomPickEnum(SiteStatusEnum),
-        platform: randomPickEnum(SitePlatformEnum),
-        name: randomStr(20),
-        url: randomUrl(),
-      })),
+      sites: fake_site_table.sites,
     },
   };
 };

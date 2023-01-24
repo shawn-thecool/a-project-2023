@@ -1,26 +1,48 @@
 import styled from "styled-components";
 
-export const Cards = styled.div`
+export const Wrap = styled.div`
+  display: flex;
+  flex-flow: column;
+  gap: 16px;
+`;
+export const SectionCreate = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  & > button {
+    height: 95px;
+    width: 95px;
+    border-radius: 8px;
+    border: 2px dashed #444;
+    font-size: 44px;
+    :hover {
+      cursor: pointer;
+      background-color: #f7f7f7;
+      color: #000;
+    }
+  }
+`;
+export const SectionList = styled.section`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   gap: 16px;
   padding: 16px;
 `;
-
-export const WrapCard = styled.div`
+export const SiteCard = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
   padding: 16px;
   gap: 16px;
   &:hover {
-    background-color: #f7f7f7;
     cursor: pointer;
+    background-color: #f7f7f7;
     color: #000;
   }
 `;
-export const CardPlatform = styled.div<{ color: string }>`
+export const SiteCardPlatform = styled.div<{ color: string }>`
   flex-shrink: 0;
   display: flex;
   flex-flow: row;
@@ -35,10 +57,10 @@ export const CardPlatform = styled.div<{ color: string }>`
   background-color: #fff;
   color: ${({ color }) => color};
 `;
-export const CardCont = styled.div`
+export const SiteCardCont = styled.div`
   flex: 1;
 `;
-export const CardOption = styled.div`
+export const SiteCardOption = styled.div`
   flex-shrink: 0;
   display: flex;
   flex-flow: column;

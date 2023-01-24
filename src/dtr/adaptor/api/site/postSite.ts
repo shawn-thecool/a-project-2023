@@ -1,4 +1,5 @@
 import { IResBase } from "../http";
+import { fake_site_table } from "../_fake_db/sites";
 import { ISite } from "./getSite";
 
 /**
@@ -18,14 +19,6 @@ export const reqPostSite = (req: IReqPostSite): IResPostSite => {
   return {
     code: "0200",
     message: "Success",
-    data: {
-      site: {
-        site_id: req.site_id, //randomId()
-        status: req.status,
-        platform: req.platform,
-        name: req.name,
-        url: req.url,
-      },
-    },
+    data: { site: fake_site_table.add(req) },
   };
 };

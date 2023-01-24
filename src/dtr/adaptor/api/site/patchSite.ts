@@ -1,4 +1,5 @@
 import { IResBase } from "../http";
+import { fake_site_table } from "../_fake_db/sites";
 import { ISite } from "./getSite";
 
 /**
@@ -15,24 +16,9 @@ export interface IResPatchSite extends IResBase {
  * @returns
  */
 export const reqPatchSite = (req: IReqPatchSite): IResPatchSite => {
-  let site: Partial<ISite> = {};
-  if (site.site_id) req.site_id = req.site_id;
-  if (site.status) req.status = req.status;
-  if (site.platform) req.platform = req.platform;
-  if (site.name) req.name = req.name;
-  if (site.url) req.url = req.url;
-
   return {
     code: "0200",
     message: "Success",
-    data: {
-      site: {
-        site_id: req.site_id, //randomId()
-        status: req.status,
-        platform: req.platform,
-        name: req.name,
-        url: req.url,
-      },
-    },
+    data: { site: fake_site_table.update(req) },
   };
 };

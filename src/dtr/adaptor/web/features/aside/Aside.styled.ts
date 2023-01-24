@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const Wrap = styled.nav<{ open: boolean }>`
+export const Wrap = styled.aside<{ open: boolean }>`
   overflow: hidden;
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: ${({ open }) => (open ? "100vw" : "0")};
   height: 100vh;
 `;
@@ -16,12 +16,12 @@ export const Dimmed = styled.div`
 export const Inner = styled.div<{ open: boolean }>`
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   bottom: 0;
-  width: 240px;
+  width: 600px;
   background-color: white;
   transition: all 0.3s var(--motion-ease);
-  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
+  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
 `;
 export const Head = styled.div`
   display: flex;
