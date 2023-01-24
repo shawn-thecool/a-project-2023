@@ -64,18 +64,18 @@ const CreateSite = (props: { refetch: () => void }) => {
   return (
     <>
       <button onClick={asideHook.onOpen}>+</button>
-      {asideHook.open && (
-        <Aside
-          hook={asideHook}
-          head={<AsideCreateSiteHead />}
-          cont={
+      <Aside
+        hook={asideHook}
+        head={<AsideCreateSiteHead />}
+        cont={
+          asideHook.open && (
             <AsideCreateSiteCont
               refetch={props.refetch}
               onClose={asideHook.onClose}
             />
-          }
-        />
-      )}
+          )
+        }
+      />
     </>
   );
 };
@@ -84,19 +84,19 @@ const UpdateSite = (props: { site: ISiteEntity; refetch: () => void }) => {
   return (
     <>
       <button onClick={asideHook.onOpen}>update &rarr;</button>
-      {asideHook.open && (
-        <Aside
-          hook={asideHook}
-          head={<AsideUpdateSiteHead />}
-          cont={
+      <Aside
+        hook={asideHook}
+        head={<AsideUpdateSiteHead />}
+        cont={
+          asideHook.open && (
             <AsideUpdateSiteCont
               site={props.site}
               refetch={props.refetch}
               onClose={asideHook.onClose}
             />
-          }
-        />
-      )}
+          )
+        }
+      />
     </>
   );
 };

@@ -4,16 +4,22 @@ import { ISite } from "../site";
 
 class FakeSiteTable {
   constructor() {
-    this.add({
-      site_id: randomId(),
-      status: randomPickEnum(SiteStatusEnum),
-      platform: randomPickEnum(SitePlatformEnum),
-      name: randomStr(20),
-      url: randomUrl(),
-    });
+    this.init(10);
   }
 
   sites = [];
+
+  init(length: number) {
+    Array.from({ length }, (_, idx) => idx).map(() =>
+      this.add({
+        site_id: randomId(),
+        status: randomPickEnum(SiteStatusEnum),
+        platform: randomPickEnum(SitePlatformEnum),
+        name: randomStr(20),
+        url: randomUrl(),
+      })
+    );
+  }
 
   add(site: ISite) {
     this.sites.push(site);

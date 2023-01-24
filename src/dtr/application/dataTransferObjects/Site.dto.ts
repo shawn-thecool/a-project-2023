@@ -1,5 +1,5 @@
 import { IResGetSite, IResGetSites } from "@/dtr/adaptor/api";
-import SiteEntity, { ISiteEntity } from "@/dtr/domain/entities/Site.entity";
+import SiteEntity from "@/dtr/domain/entities/Site.entity";
 import { SitePlatformEnum, SiteStatusEnum } from "@/dtr/domain/valueObjects";
 
 // api.data => uc => dto => (entity | aggregate | vo | dto)
@@ -33,7 +33,7 @@ export class SitesReadDto {
   }
   public page_no: number;
   public page_size: number;
-  public siteEntities: ISiteEntity[];
+  public siteEntities: SiteEntity[];
 }
 export class SiteCreateDto {}
 export class SiteUpdateDto {}
