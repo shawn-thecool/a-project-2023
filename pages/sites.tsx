@@ -1,6 +1,6 @@
 import Head from "next/head";
-import SimpleLayout from "@/dtr/adaptor/web/assets/layouts/SimpleLayout";
-import { SitesMain } from "@/dtr/adaptor/web/views/sites/SitesMain";
+import SimpleLayout from "@/gg/adaptor/web/assets/layouts/SimpleLayout";
+import { SitesMain } from "@/gg/adaptor/web/views/sites/SitesMain";
 
 export default function Sites() {
   return (

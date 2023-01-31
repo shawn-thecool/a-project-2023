@@ -1,5 +1,5 @@
 import Head from "next/head";
-import SimpleLayout from "@/dtr/adaptor/web/assets/layouts/SimpleLayout";
+import SimpleLayout from "@/gg/adaptor/web/assets/layouts/SimpleLayout";
 
 export default function Home() {
   return (
