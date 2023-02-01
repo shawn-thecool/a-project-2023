@@ -73,7 +73,7 @@ export const randomHashedId = (): string => {
 };
 
 /**
- * Picks a random item from the given array
+ * Pick a random item from the given array
  * @template T
  * @param {T[]} [array=[]] - The array to pick an item from
  * @returns {T} A random item from the array
@@ -83,7 +83,7 @@ export const randomArrayItem = <T>(array: T[] = []): T => {
 };
 
 /**
- * Picks a random value from the given object
+ * Pick a random value from the given object
  * @template T
  * @param {{ [k: string]: T }} [obj={}] - The object to pick a value from
  * @returns {T} A random value from the object
