@@ -1,77 +1,59 @@
+import { UserTypeEnum, GenderEnum } from "../../vo";
 import { IUserEntity, UserEntity } from "./User.entity";
 
 describe("UserEntity", () => {
-  const userData: IUserEntity = {
-    id: "123456",
-    name: "John Doe",
-    email: "johndoe@example.com",
-    type: "admin",
-    birth: 86400000,
-    address: {
-      country: "KOR",
-      street: "1 Main St",
-      city: "San Francisco",
-      state: "CA",
-      zipCode: "94102",
-    },
-    gender: "male",
-    phone: "555-555-5555",
-  };
-
-  let user: UserEntity;
+  let userData: IUserEntity;
 
   beforeEach(() => {
-    user = new UserEntity(userData);
+    userData = {
+      id: "123",
+      name: "John Doe",
+      email: "john.doe@example.com",
+      type: UserTypeEnum.admin,
+      birth: 123456789,
+      address: {
+        country: "US",
+        street: "1 Main St",
+        city: "San Francisco",
+        state: "CA",
+        zipCode: "94114",
+      },
+      gender: GenderEnum.male,
+      phone: "+1 650-253-0000",
+    };
   });
 
-  test("creates a UserEntity instance", () => {
+  it("should create an instance of UserEntity", () => {
+    const user = new UserEntity(userData);
     expect(user).toBeInstanceOf(UserEntity);
   });
 
-  test("returns the correct id", () => {
-    expect(user.id.value).toBe(userData.id);
+  it("should return correct values for getters", () => {
+    const user = new UserEntity(userData);
+    expect(user.id.value).toEqual(userData.id);
+    expect(user.name).toEqual(userData.name);
+    expect(user.email.value).toEqual(userData.email);
+    expect(user.type.value).toEqual(userData.type);
+    expect(user.birth.value).toEqual(userData.birth);
+    expect(user.gender.value).toEqual(userData.gender);
+    expect(user.phone).toEqual(userData.phone);
   });
 
-  test("returns the correct name", () => {
-    expect(user.name).toBe(userData.name);
-  });
-
-  test("returns the correct email", () => {
-    expect(user.email.value).toBe(userData.email);
-  });
-
-  test("returns the correct type", () => {
-    expect(user.type.value).toBe(userData.type);
-  });
-
-  test("returns the correct birth date", () => {
-    expect(user.birth.value).toBe(userData.birth);
-  });
-
-  test("returns the correct age", () => {
-    const birthYear = new Date(userData.birth).getFullYear();
+  it("should return correct value for getter age", () => {
+    const user = new UserEntity(userData);
     const currentYear = new Date().getFullYear();
-    const expectedAge = currentYear - birthYear;
-    expect(user.age).toBe(expectedAge);
+    const birthYear = new Date(userData.birth).getFullYear();
+    expect(user.age).toEqual(currentYear - birthYear);
   });
 
-  test("returns the correct gender", () => {
-    expect(user.gender.value).toBe(userData.gender);
-  });
+  it("should validate email correctly", () => {
+    const user = new UserEntity(userData);
+    expect(user.email.validate()).toBeTruthy();
 
-  test("returns the correct address", () => {
-    expect(user.address.country).toBe(userData.address.country);
-    expect(user.address.street).toBe(userData.address.street);
-    expect(user.address.city).toBe(userData.address.city);
-    expect(user.address.state).toBe(userData.address.state);
-    expect(user.address.zipCode).toBe(userData.address.zipCode);
-  });
-
-  test("returns the correct phone", () => {
-    expect(user.phone).toBe(userData.phone);
-  });
-
-  test("validates the email", () => {
-    expect(user.validate()).toBe(true);
+    const userWithIncorrectEmail = new UserEntity({
+      ...userData,
+      ...{ email: "not-an-email" },
+    });
+    expect(userWithIncorrectEmail.email.validate()).toBeFalsy();
   });
 });

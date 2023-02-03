@@ -15,6 +15,13 @@ export class DateVO {
   get date(): Date {
     return new Date(this.value);
   }
+  intl(
+    locale: string = "en-US",
+    opts: { [k: string]: string } = { weekday: "long", year: "numeric" }
+  ): string {
+    const formatter = new Intl.DateTimeFormat(locale, opts);
+    return formatter.format(this.date);
+  }
 
   validate(): boolean {
     return true;

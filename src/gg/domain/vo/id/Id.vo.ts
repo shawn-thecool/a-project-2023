@@ -17,6 +17,3 @@ export class IdVO {
     return true;
   }
 }
-
-export class UserIdVO extends IdVO {}
-export class ImageIdVO extends IdVO {}

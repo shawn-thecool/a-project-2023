@@ -1,5 +1,5 @@
 import { DateVO, EmailVO, GenderEnum, UserIdVO, UserTypeEnum } from "../../vo";
-import { AddressVO, IAddressVO } from "../../vo/Address.vo";
+import { AddressVO, IAddressVO } from "../../vo/address/Address.vo";
 
 export interface IUserEntity {
   id: string;

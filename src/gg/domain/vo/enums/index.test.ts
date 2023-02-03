@@ -1,4 +1,4 @@
-import { GenderEnum, UserTypeEnum } from "./Base.enum";
+import { GenderEnum, UserTypeEnum } from ".";
 
 describe("GenderEnum", () => {
   test("has the expected properties", () => {

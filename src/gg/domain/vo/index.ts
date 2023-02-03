@@ -1,5 +1,7 @@
-export * from "./Address.vo";
-export * from "./Date.vo";
-export * from "./Email.vo";
-export * from "./Id.vo";
-export * from "./enums/Base.enum";
+export * from "./enums";
+
+export * from "./id";
+
+export * from "./address/Address.vo";
+export * from "./date/Date.vo";
+export * from "./email/Email.vo";
