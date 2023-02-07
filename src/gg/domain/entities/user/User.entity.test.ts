@@ -1,5 +1,5 @@
-import { UserTypeEnum, GenderEnum } from "../../vo";
-import { IUserEntity, UserEntity } from "./User.entity";
+import { UserTypeEnum, GenderEnum } from "../../vo/Base.enum";
+import UserEntity, { IUserEntity } from "../User.entity";
 
 describe("UserEntity", () => {
   let userData: IUserEntity;

@@ -1,4 +1,4 @@
-import { ImageIdVO } from "../../vo";
+import { ImageIdVO } from "../../vo/Id.vo";
 
 export interface IImageEntity {
   id: string;
