@@ -1,21 +1,26 @@
-import { UserRepo } from "../../adaptor/api/repositories/UserRepo";
-import { UserIdVO } from "../../domain/vo/Id.vo";
+import SiteRepo from '../../adaptor/api/repositories/SiteRepo'
+import UserRepo from '../../adaptor/api/repositories/UserRepo'
+import { SiteIdVO, UserIdVO } from '../../domain/vo/BaseId.vo'
 
 export class UserUseCase {
-  _userRepo = new UserRepo();
-
-  constructor() {
-    // this.user_repo
-    // this.site_repo
-    // this.user_factory
-    // this.user_service
-  }
+  private _userRepo: UserRepo = new UserRepo()
+  private _siteRepo: SiteRepo = new SiteRepo()
 
   async getUser(userId: string) {
-    const user = await this._userRepo.findById(new UserIdVO({ value: userId }));
-    return user;
+    return this._userRepo.findById(new UserIdVO(userId))
+  }
+  async getSite(siteId: string) {
+    return this._siteRepo.findById(new SiteIdVO(siteId))
   }
   getUsers() {}
   createUser() {}
   updateUser() {}
+
+  async canCreateSite(userId: string) {
+    const user = await this.getUser(userId)
+    console.log('canCreateSite', user)
+    if (user.type.is('viewer')) {
+      console.log('viewer can not create site')
+    }
+  }
 }
