@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const randomArrayItem = (array) => {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
 router.get('/:id', (req, res) => {
   res.json({
     code: '200',
@@ -10,7 +14,7 @@ router.get('/:id', (req, res) => {
         id: req.params.id,
         name: 'test-name',
         email: 'test@naver.com',
-        type: 'admin',
+        type: randomArrayItem(['admin', 'viewer']),
         birth: new Date(1990, 12, 14).getTime(),
         address: {
           country: 'korea',

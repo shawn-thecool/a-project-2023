@@ -1,8 +1,9 @@
-import SiteRepo from '../../adaptor/api/repositories/SiteRepo'
-import UserRepo from '../../adaptor/api/repositories/UserRepo'
-import SiteEntity from '../../domain/entities/Site.entity'
+import SiteRepo from '../../adaptor/api/repositories/Site.repo'
+import UserRepo from '../../adaptor/api/repositories/User.repo'
+import { SiteEntity } from '../../domain/entities'
+import { userTypeDeniedException } from '../../domain/exception'
 import { checkUserTypePolicy } from '../../domain/policy'
-import { SiteIdVO } from '../../domain/vo/BaseId.vo'
+import { SiteIdVO, UserIdVO } from '../../domain/vo/BaseId.vo'
 
 export class SiteUseCase {
   private _userRepo: UserRepo = new UserRepo()
@@ -11,30 +12,9 @@ export class SiteUseCase {
   async getSite(siteId: string) {
     return this._siteRepo.findById(new SiteIdVO(siteId))
   }
-  async getUser(userId: string) {
-    return this._userRepo.findById(new SiteIdVO(userId))
-  }
-
-  async getSites() {}
   async createSite(userId: string, site: SiteEntity) {
-    // if (!this.canCreateSite(userId)) return false
+    const user = await this._userRepo.findById(new UserIdVO(userId))
+    if (!checkUserTypePolicy(user.type)) return userTypeDeniedException()
     return this._siteRepo.save(site)
-  }
-  async patchSite() {}
-  async deleteSite() {}
-
-  async canCreateSite(userId: string) {
-    const user = await this.getUser(userId)
-
-    if (!user) {
-      console.log('data load error')
-      return false
-    }
-    if (!checkUserTypePolicy(user.type)) {
-      console.log('viewer can not create site', user.type.is('viewer'))
-      return false
-    }
-
-    return true
   }
 }

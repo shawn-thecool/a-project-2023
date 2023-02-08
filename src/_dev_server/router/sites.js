@@ -16,5 +16,18 @@ router.get('/:id', (req, res) => {
     },
   })
 })
+router.post('/', (req, res) => {
+  res.json({
+    code: '200',
+    message: 'success',
+    data: {
+      site: {
+        ...req.body,
+        id: String(Math.random()),
+        status: 'siteCreated',
+      },
+    },
+  })
+})
 
 module.exports = router

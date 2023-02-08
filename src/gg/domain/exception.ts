@@ -1,6 +1,14 @@
 // TODO:
 
-export {}
+interface IBaseException {
+  code: string
+  msg: string
+}
+
+export const userTypeDeniedException = (): IBaseException => ({
+  code: '401',
+  msg: 'userTypeDenied: viewer can not create or update',
+})
 
 // export interface IBaseException {
 //   code: string;
