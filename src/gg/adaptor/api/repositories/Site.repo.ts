@@ -1,6 +1,6 @@
-import SiteEntity from '../../../domain/entities/Site.entity'
-import AbsSiteRepo from '../../../domain/repositories/AbsSiteRepo'
-import { SiteIdVO } from '../../../domain/vo/BaseId.vo'
+import { SiteEntity } from '../../../domain/entities'
+import SiteAbsRepo from '../../../domain/repositories/Site.abs.repo'
+import { SiteIdVO } from '../../../domain/vo'
 import makeRequest from '../axios'
 
 interface IReqPostSite {
@@ -8,14 +8,7 @@ interface IReqPostSite {
   url: string
   platform: string
 }
-const _entityToReq = (entity: SiteEntity) => {
-  const requestData: IReqPostSite = {
-    name: entity.name,
-    url: entity.url,
-    platform: entity.platform.value,
-  }
-  return requestData
-}
+
 interface IResGetSiteById {
   code: string
   message: string
@@ -29,6 +22,14 @@ interface IResGetSiteById {
     }
   }
 }
+const _entityToReq = (entity: SiteEntity) => {
+  const requestData: IReqPostSite = {
+    name: entity.name,
+    url: entity.url,
+    platform: entity.platform.value,
+  }
+  return requestData
+}
 const _resToEntity = (res: IResGetSiteById): SiteEntity => {
   return new SiteEntity({
     id: res.data.site.id || '',
@@ -39,15 +40,15 @@ const _resToEntity = (res: IResGetSiteById): SiteEntity => {
   })
 }
 
-export default class SiteRepo implements AbsSiteRepo {
+export default class SiteRepo implements SiteAbsRepo {
   async save(site: SiteEntity): Promise<SiteEntity> {
     const req = { method: 'POST', url: `/sites`, data: _entityToReq(site) }
-    const res = await makeRequest(req)
+    const res: { data: IResGetSiteById } = await makeRequest(req)
     return _resToEntity(res.data)
   }
   async findById(siteId: SiteIdVO): Promise<SiteEntity> {
     const req = { method: 'GET', url: `/sites/${siteId.value}` }
-    const res: { data: any } = await makeRequest(req)
+    const res: { data: IResGetSiteById } = await makeRequest(req)
     return _resToEntity(res.data)
   }
 }

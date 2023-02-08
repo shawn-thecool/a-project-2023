@@ -1,6 +1,6 @@
-import UserEntity from '../../../domain/entities/User.entity'
-import AbsUserRepo from '../../../domain/repositories/AbsUserRepo'
-import { UserIdVO } from '../../../domain/vo/BaseId.vo'
+import { UserEntity } from '../../../domain/entities'
+import UserAbsRepo from '../../../domain/repositories/User.abs.repo'
+import { UserIdVO } from '../../../domain/vo'
 import makeRequest from '../axios'
 
 interface IReqPostUser {
@@ -58,10 +58,10 @@ const _resToEntity = (res: IResGetUserById): UserEntity => {
   })
 }
 
-export default class UserRepo implements AbsUserRepo {
+export default class UserRepo implements UserAbsRepo {
   async save(user: UserEntity): Promise<UserEntity> {
     const req = { method: 'POST', url: `/users`, data: _entityToReq(user) }
-    const res = await makeRequest(req)
+    const res: { data: IResGetUserById } = await makeRequest(req)
     return _resToEntity(res.data)
   }
   async findById(userId: UserIdVO): Promise<UserEntity> {
