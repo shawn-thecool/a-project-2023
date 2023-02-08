@@ -1,4 +1,4 @@
-export default class BaseEnum {
+class BaseEnum {
   private _value: string
   private _values: string[]
 

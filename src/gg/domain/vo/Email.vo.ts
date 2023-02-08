@@ -4,7 +4,7 @@ export interface IEmailVO {
   value: string;
 }
 
-export default class EmailVO {
+export  class EmailVO {
   private _value: IEmailVO["value"];
 
   constructor(data: IEmailVO) {

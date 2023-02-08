@@ -1,8 +1,4 @@
-import { UserTypeEnum, GenderEnum } from '../vo/Base.enum'
-import { UserIdVO } from '../vo/BaseId.vo'
-import AddressVO, { IAddressVO } from '../vo/Address.vo'
-import DateVO from '../vo/Date.vo'
-import EmailVO from '../vo/Email.vo'
+import { IAddressVO, EmailVO, DateVO, AddressVO, GenderEnum, UserIdVO, UserTypeEnum } from '../vo'
 
 export interface IUserEntity {
   id: string
@@ -15,7 +11,7 @@ export interface IUserEntity {
   phone: string
 }
 
-export default class UserEntity {
+export class UserEntity {
   private _id: UserIdVO
   private _name: string
   private _email: EmailVO

@@ -1,4 +1,4 @@
-import { ImageIdVO } from '../../vo/BaseId.vo'
+import { ImageIdVO } from '../vo'
 
 export interface IImageEntity {
   id: string
@@ -9,7 +9,7 @@ export interface IImageEntity {
   size: number
   width: number
   height: number
-  createdAt: string // date vo
+  createdAt: string
   updatedAt: string
   deletedAt: string
 }
@@ -28,7 +28,7 @@ export class ImageEntity {
   private _deletedAt: string
 
   constructor(data: IImageEntity) {
-    this._id = new ImageIdVO({ value: data.id })
+    this._id = new ImageIdVO(data.id)
     this._file = data.file
     this._path = data.path
     this._name = data.name

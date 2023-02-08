@@ -1,5 +1,4 @@
-import { PlatformEnum, SiteStatusEnum } from '../vo/Base.enum'
-import { SiteIdVO } from '../vo/BaseId.vo'
+import { SiteIdVO, PlatformEnum, SiteStatusEnum } from '../vo'
 
 export interface ISiteEntity {
   id: string
@@ -9,7 +8,7 @@ export interface ISiteEntity {
   status: string
 }
 
-export default class SiteEntity {
+export class SiteEntity {
   private _id: SiteIdVO
   private _name: string
   private _url: string

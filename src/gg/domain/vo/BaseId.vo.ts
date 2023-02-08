@@ -1,4 +1,4 @@
-export default class IdVO {
+class IdVO {
   private _value: string
 
   constructor(value: string) {
