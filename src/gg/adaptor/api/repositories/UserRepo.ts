@@ -1,8 +1,7 @@
-import { IResGetUserDTO } from '../../../application/dto/User.dto'
 import UserEntity from '../../../domain/entities/User.entity'
 import AbsUserRepo from '../../../domain/repositories/AbsUserRepo'
 import { UserIdVO } from '../../../domain/vo/BaseId.vo'
-import makeRequest from '../http'
+import makeRequest from '../axios'
 
 interface IReqPostUser {
   name: string
@@ -31,6 +30,7 @@ interface IResGetUserById {
     }
   }
 }
+
 const _entityToReq = (entity: UserEntity) => {
   const requestData: IReqPostUser = {
     name: entity.name,

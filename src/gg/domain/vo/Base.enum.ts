@@ -18,7 +18,7 @@ export default class BaseEnum {
   }
 
   is(value: string): boolean {
-    return this.values.includes(value)
+    return this.value === value
   }
   validate(): boolean {
     return this.values.includes(this.value)

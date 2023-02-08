@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider, QueryFunctionContext } from '@tanstack/react-query'
 import type { AppProps } from 'next/app'
 import { ThemeProvider, DefaultTheme } from 'styled-components'
-import makeRequest from '../src/gg/adaptor/api/http'
+import makeRequest from '../src/gg/adaptor/api/axios'
 import GlobalStyle from '../src/gg/adaptor/web/assets/styles/global.styled'
 
 const theme: DefaultTheme = {

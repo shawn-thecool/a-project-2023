@@ -1,8 +1,21 @@
 import SiteEntity from '../../../domain/entities/Site.entity'
 import AbsSiteRepo from '../../../domain/repositories/AbsSiteRepo'
 import { SiteIdVO } from '../../../domain/vo/BaseId.vo'
-import makeRequest from '../http'
+import makeRequest from '../axios'
 
+interface IReqPostSite {
+  name: string
+  url: string
+  platform: string
+}
+const _entityToReq = (entity: SiteEntity) => {
+  const requestData: IReqPostSite = {
+    name: entity.name,
+    url: entity.url,
+    platform: entity.platform.value,
+  }
+  return requestData
+}
 interface IResGetSiteById {
   code: string
   message: string
@@ -16,7 +29,6 @@ interface IResGetSiteById {
     }
   }
 }
-
 const _resToEntity = (res: IResGetSiteById): SiteEntity => {
   return new SiteEntity({
     id: res.data.site.id || '',
@@ -29,7 +41,9 @@ const _resToEntity = (res: IResGetSiteById): SiteEntity => {
 
 export default class SiteRepo implements AbsSiteRepo {
   async save(site: SiteEntity): Promise<SiteEntity> {
-    throw new Error('Method not implemented.')
+    const req = { method: 'POST', url: `/sites`, data: _entityToReq(site) }
+    const res = await makeRequest(req)
+    return _resToEntity(res.data)
   }
   async findById(siteId: SiteIdVO): Promise<SiteEntity> {
     const req = { method: 'GET', url: `/sites/${siteId.value}` }
