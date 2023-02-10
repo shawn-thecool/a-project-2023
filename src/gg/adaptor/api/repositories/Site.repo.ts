@@ -1,3 +1,4 @@
+import { AxiosPromise } from 'axios'
 import { SiteEntity } from '../../../domain/entities'
 import SiteAbsRepo from '../../../domain/repositories/Site.abs.repo'
 import { SiteIdVO } from '../../../domain/vo'
@@ -40,15 +41,19 @@ const _resToEntity = (res: IResGetSiteById): SiteEntity => {
   })
 }
 
-export default class SiteRepo implements SiteAbsRepo {
-  async save(site: SiteEntity): Promise<SiteEntity> {
+export class SiteRepo implements SiteAbsRepo {
+  async save(site: SiteEntity): Promise<AxiosPromise<SiteEntity>> {
     const req = { method: 'POST', url: `/sites`, data: _entityToReq(site) }
-    const res: { data: IResGetSiteById } = await makeRequest(req)
-    return _resToEntity(res.data)
+    return makeRequest(req).then((res) => {
+      res.data = _resToEntity(res.data)
+      return res
+    })
   }
-  async findById(siteId: SiteIdVO): Promise<SiteEntity> {
+  async findById(siteId: SiteIdVO): Promise<AxiosPromise<SiteEntity>> {
     const req = { method: 'GET', url: `/sites/${siteId.value}` }
-    const res: { data: IResGetSiteById } = await makeRequest(req)
-    return _resToEntity(res.data)
+    return makeRequest(req).then((res) => {
+      res.data = _resToEntity(res.data)
+      return res
+    })
   }
 }

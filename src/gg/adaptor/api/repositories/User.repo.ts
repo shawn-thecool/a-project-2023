@@ -1,3 +1,4 @@
+import { AxiosPromise } from 'axios'
 import { UserEntity } from '../../../domain/entities'
 import UserAbsRepo from '../../../domain/repositories/User.abs.repo'
 import { UserIdVO } from '../../../domain/vo'
@@ -58,15 +59,19 @@ const _resToEntity = (res: IResGetUserById): UserEntity => {
   })
 }
 
-export default class UserRepo implements UserAbsRepo {
-  async save(user: UserEntity): Promise<UserEntity> {
+export class UserRepo implements UserAbsRepo {
+  async save(user: UserEntity): Promise<AxiosPromise<UserEntity>> {
     const req = { method: 'POST', url: `/users`, data: _entityToReq(user) }
-    const res: { data: IResGetUserById } = await makeRequest(req)
-    return _resToEntity(res.data)
+    return makeRequest(req).then((res) => {
+      res.data = _resToEntity(res.data)
+      return res
+    })
   }
-  async findById(userId: UserIdVO): Promise<UserEntity> {
+  async findById(userId: UserIdVO): Promise<AxiosPromise<UserEntity>> {
     const req = { method: 'GET', url: `/users/${userId.value}` }
-    const res: { data: IResGetUserById } = await makeRequest(req)
-    return _resToEntity(res.data)
+    return makeRequest(req).then((res) => {
+      res.data = _resToEntity(res.data)
+      return res
+    })
   }
 }

@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import SimpleLayout from '../src/gg/adaptor/web/assets/layouts/SimpleLayout'
+import { useSiteUC } from '../src/gg/adaptor/web/hooks'
 import { SiteUseCase } from '../src/gg/application/usecases/SiteUseCase'
 import { SiteEntity } from '../src/gg/domain/entities'
 
@@ -8,25 +9,21 @@ export default function Home() {
   const userId = 'test_user_id_100'
   const siteId = 'test_site_id_10000'
 
-  const siteUC = new SiteUseCase()
-  const [site, setSite] = useState(null)
-  const [siteCreateRes, setSiteCreateRes] = useState(null)
-
-  useEffect(() => {
-    siteUC.getSite(siteId).then((res) => setSite(res))
-  }, [])
-
+  const uc = useSiteUC()
+  // const res = await useCreateSiteMutation().mutateAsync()
+  const site = new SiteEntity({
+    id: '',
+    name: 'will create site name',
+    url: 'url',
+    platform: 'cafe24',
+    status: '',
+  })
+  const create = uc.createSite(userId, site)
+  const [createRes, setCreateRes] = useState(null)
   const onCreateSite = async () => {
     if (!userId) return
-    const site = new SiteEntity({
-      id: '',
-      name: 'will create site name',
-      url: 'url',
-      platform: 'cafe24',
-      status: '',
-    })
-    const res = await siteUC.createSite(userId, site)
-    setSiteCreateRes(res)
+    const res = await create.mutateAsync()
+    setCreateRes(res)
   }
 
   return (
@@ -44,11 +41,11 @@ export default function Home() {
             <div>
               <h2>create site</h2>
               <button onClick={onCreateSite}>create site</button>
-              <pre>{JSON.stringify(siteCreateRes, null, 2)}</pre>
+              <pre>{JSON.stringify(createRes, null, 2)}</pre>
             </div>
             <div>
               <h2>get site by id</h2>
-              <pre>{JSON.stringify(site, null, 2)}</pre>
+              <pre>{JSON.stringify(uc.getSiteById(userId).data, null, 2)}</pre>
             </div>
           </div>
         }
