@@ -1,15 +1,11 @@
-export interface IDateVO {
-  value: number
-}
-
 export class DateVO {
-  private _value: IDateVO['value']
+  private _value: number
 
-  constructor(data: IDateVO) {
-    this._value = data.value
+  constructor(dtm: number) {
+    this._value = dtm
   }
 
-  get value(): IDateVO['value'] {
+  get value(): number {
     return this._value
   }
   get date(): Date {

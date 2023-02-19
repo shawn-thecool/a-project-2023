@@ -17,3 +17,4 @@ class IdVO {
 export class UserIdVO extends IdVO {}
 export class SiteIdVO extends IdVO {}
 export class ImageIdVO extends IdVO {}
+export class ReportIdVO extends IdVO {}

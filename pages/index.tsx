@@ -2,10 +2,9 @@ import Head from 'next/head'
 import { useState } from 'react'
 import SimpleLayout from '../src/gg/adaptor/web/assets/layouts/SimpleLayout'
 import { useSiteUC } from '../src/gg/adaptor/web/hooks'
-import { SiteUseCase } from '../src/gg/application/usecases/SiteUseCase'
 import { SiteEntity } from '../src/gg/domain/entities'
 
-export default function Home() {
+export default function Index() {
   const userId = 'test_user_id_100'
   const siteId = 'test_site_id_10000'
 
@@ -20,6 +19,7 @@ export default function Home() {
   })
   const create = uc.createSite(userId, site)
   const [createRes, setCreateRes] = useState(null)
+
   const onCreateSite = async () => {
     if (!userId) return
     const res = await create.mutateAsync()
@@ -40,6 +40,14 @@ export default function Home() {
           <div>
             <div>
               <h2>create site</h2>
+              <button
+                onClick={async () => {
+                  const res = await create.mutateAsync()
+                  console.log(res)
+                }}
+              >
+                create site
+              </button>
               <button onClick={onCreateSite}>create site</button>
               <pre>{JSON.stringify(createRes, null, 2)}</pre>
             </div>
