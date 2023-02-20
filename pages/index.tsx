@@ -43,7 +43,6 @@ export default function Index() {
               <button
                 onClick={async () => {
                   const res = await create.mutateAsync()
-                  console.log(res)
                 }}
               >
                 create site

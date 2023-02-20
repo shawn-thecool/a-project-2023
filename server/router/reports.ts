@@ -1,4 +1,5 @@
-const express = require('express')
+import express from 'express'
+
 const router = express.Router()
 
 const generateReport = (id) => {
@@ -31,14 +32,14 @@ router.get('/', (req, res) => {
     },
   })
 })
-router.get('/:id', (req, res) => {
+router.get('/:reportId', (req, res) => {
   res.json({
     code: '200',
     message: 'success',
     data: {
-      report: generateReport(req.params.id),
+      report: generateReport(req.params.reportId),
     },
   })
 })
 
-module.exports = router
+export default router

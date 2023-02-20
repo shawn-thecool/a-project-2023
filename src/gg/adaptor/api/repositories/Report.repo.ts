@@ -1,15 +1,10 @@
 import { AxiosPromise } from 'axios'
-import { ReportEntity, SiteEntity } from '../../../domain/entities'
-import { ReportAbsRepo } from '../../../domain/repositories'
 import makeRequest from '../axios'
+import { IHttpRes } from '../http.interface'
+import { ReportEntity } from '../../../domain/entities'
+import { ReportAbsRepo } from '../../../domain/repositories'
 
-interface IReqReport {
-  siteId: string
-  reportId: string
-}
-interface IResReport {
-  code: string
-  message: string
+interface IResReport extends IHttpRes {
   data: {
     report: {
       id: string
@@ -24,16 +19,7 @@ interface IResReport {
     }
   }
 }
-interface IReqReports {
-  siteEntity: SiteEntity
-  reportEntity: ReportEntity
-  page: number
-  pageSize: number
-  isAsc: boolean
-}
-interface IResReports {
-  code: string
-  message: string
+interface IResReports extends IHttpRes {
   data: {
     reports: IResReport['data']['report'][]
     page: number
@@ -42,23 +28,8 @@ interface IResReports {
   }
 }
 
-// findById
-export interface IFindByIdReqDTO {
-  siteId: string
-  reportId: string
-}
-export interface IFindByIdResDTO {
-  report: ReportEntity
-}
-export const findByIdReqDTO = (req: IReqReport): IFindByIdReqDTO => {
-  const dto: IFindByIdReqDTO = {
-    siteId: req.siteId,
-    reportId: req.reportId,
-  }
-  return dto
-}
-export const findByIdResDTO = (res: IResReport): IFindByIdResDTO => {
-  const dto: IFindByIdResDTO = {
+const findByIdResToEntity = (res: IResReport): { report: ReportEntity } => {
+  return {
     report: new ReportEntity({
       id: res.data.report.id,
       title: res.data.report.title,
@@ -71,78 +42,48 @@ export const findByIdResDTO = (res: IResReport): IFindByIdResDTO => {
       updatedBy: res.data.report.updatedBy,
     }),
   }
-  return dto
 }
-
-// findByCondition
-export interface IFindByConditionReqDTO {
-  siteId: string
-  reportId: string
-  page: number
-  pageSize: number
-  isAsc: boolean
-}
-export interface IFindByConditionResDTO {
-  reports: ReportEntity[]
-  page: number
-  pageSize: number
-  isAsc: boolean
-}
-export const findByConditionReqDTO = (req: IReqReports): IFindByConditionReqDTO => {
-  const dto: IFindByConditionReqDTO = {
-    siteId: req.siteEntity.id.value,
-    reportId: req.reportEntity.id.value,
-    page: req.page,
-    pageSize: req.pageSize,
-    isAsc: req.isAsc,
-  }
-  return dto
-}
-export const findByConditionResDTO = (res: IResReports): IFindByConditionResDTO => {
-  const dto: IFindByConditionResDTO = {
-    reports: res.data.reports.map(
-      (report) =>
-        new ReportEntity({
-          id: report.id,
-          title: report.title,
-          desc: report.desc,
-          bodyText: report.bodyText,
-          data: report.data,
-          createdAt: report.createdAt,
-          createdBy: report.createdBy,
-          updatedAt: report.updatedAt,
-          updatedBy: report.updatedBy,
-        })
-    ),
+const findByConditionResToEntity = (res: IResReports): { reports: ReportEntity[]; page: number; pageSize: number; isAsc: boolean } => {
+  return {
+    reports: res.data.reports.map((report) => {
+      return new ReportEntity({
+        id: report.id,
+        title: report.title,
+        desc: report.desc,
+        bodyText: report.bodyText,
+        data: report.data,
+        createdAt: report.createdAt,
+        createdBy: report.createdBy,
+        updatedAt: report.updatedAt,
+        updatedBy: report.updatedBy,
+      })
+    }),
     page: res.data.page,
     pageSize: res.data.pageSize,
     isAsc: res.data.isAsc,
   }
-  return dto
 }
 
 export class ReportRepo implements ReportAbsRepo {
-  create() {
+  async create() {
     throw new Error('Method not implemented.')
   }
-  update() {
+  async update() {
     throw new Error('Method not implemented.')
   }
-  delete() {
+  async delete() {
     throw new Error('Method not implemented.')
   }
-  async findById(reqDTO: IFindByIdReqDTO): Promise<AxiosPromise<IFindByIdResDTO>> {
-    const req = { method: 'GET', url: `/sites/${reqDTO.siteId}/reports/${reqDTO.reportId}/` }
+  async findById(siteId: string, reportId: string): Promise<AxiosPromise<{ report: ReportEntity }>> {
+    const req = { method: 'GET', url: `/sites/${siteId}/reports/${reportId}/` }
     const res = await makeRequest(req)
-    const resDTO = findByIdResDTO(res.data)
-    res.data = resDTO
+    res.data = findByIdResToEntity(res.data)
     return res
   }
-  async findByCondition(reqDTO: IFindByConditionReqDTO): Promise<AxiosPromise<IFindByConditionResDTO>> {
-    const req = { method: 'GET', url: `/sites/${reqDTO.siteId}/reports?page=${reqDTO.page}&page_size=${reqDTO.pageSize}&asc=${reqDTO.isAsc}` }
+  async findByCondition(siteId: string, page: number, pageSize: number, isAsc: boolean): Promise<AxiosPromise<{ reports: ReportEntity[] }>> {
+    const req = { method: 'GET', url: `/sites/${siteId}/reports?page=${page}&page_size=${pageSize}&asc=${isAsc}` }
     const res = await makeRequest(req)
-    const resDTO = findByIdResDTO(res.data)
-    res.data = resDTO
+    res.data = findByConditionResToEntity(res.data)
     return res
   }
 }

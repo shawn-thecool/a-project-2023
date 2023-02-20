@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import SimpleLayout from '../src/gg/adaptor/web/assets/layouts/SimpleLayout'
-import { MatrixRender } from '../src/gg/adaptor/web/features/matrix'
-import { dummyReport, Report } from '../src/gg/adaptor/web/features/report'
-import { dummyDialogs, Scene } from '../src/gg/adaptor/web/features/scene'
-import { SVGContainer } from '../src/gg/adaptor/web/lib/SVGRenderer'
-import { CreateQuest } from '../src/gg/adaptor/web/views/home/CreateQuest'
+import SimpleLayout from '../../src/gg/adaptor/web/assets/layouts/SimpleLayout'
+import { MatrixRender } from '../../src/gg/adaptor/web/features/matrix'
+import { dummyReport, Report } from '../../src/gg/adaptor/web/features/report'
+import { dummyDialogs, Scene } from '../../src/gg/adaptor/web/features/scene'
+import { SVGContainer } from '../../src/gg/adaptor/web/lib/SVGRenderer'
+import { CreateQuest } from '../../src/gg/adaptor/web/views/home/CreateQuest'
 
-export default function Home() {
+export default function Sites() {
   const [showScene, setShowScene] = useState<boolean>(false)
 
   return (

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { SiteUseCase } from '../../../application/usecases/SiteUseCase'
+import { SiteUseCase } from '../../../application/usecases/Site.uc'
 import { SiteEntity } from '../../../domain/entities'
 
 export const useSiteUC = () => {

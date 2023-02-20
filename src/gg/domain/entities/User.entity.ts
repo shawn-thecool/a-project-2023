@@ -26,7 +26,7 @@ export class UserEntity {
     this._name = data.name
     this._email = new EmailVO({ value: data.email })
     this._type = new UserTypeEnum(data.type || UserTypeEnum.viewer)
-    this._birth = new DateVO({ value: data.birth })
+    this._birth = new DateVO(data.birth)
     this._gender = new GenderEnum(data.gender || GenderEnum.other)
     this._address = new AddressVO(data.address)
     this._phone = data.phone

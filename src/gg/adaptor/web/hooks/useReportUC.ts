@@ -1,13 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
-import { ReportUseCase } from '../../../application/usecases/ReportUseCase.uc'
+import { ReportUseCase } from '../../../application/usecases/Report.uc'
 
 export const useReportUC = () => {
   const uc = new ReportUseCase()
 
-  const getReportById = (siteId: string, reportId: string) =>
-    useQuery({ queryKey: ['findReportById', siteId, reportId], queryFn: () => uc.getReportById(siteId, reportId) })
+  const getReport = (siteId: string, reportId: string) =>
+    useQuery({
+      queryKey: ['getReport', siteId, reportId],
+      queryFn: () => uc.getReport(siteId, reportId),
+    })
+  const getReports = (siteId: string, page: number = 1, pageSize: number = 10, isAsc: boolean = false) =>
+    useQuery({
+      queryKey: ['getReports', siteId, page, pageSize, isAsc],
+      queryFn: () => uc.getReports(siteId, page, pageSize, isAsc),
+    })
 
   return {
-    getReportById,
+    getReport,
+    getReports,
   }
 }

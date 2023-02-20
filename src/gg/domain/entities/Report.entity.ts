@@ -71,6 +71,7 @@ export class ReportEntity {
     this._createdAt = new DateVO(Date.now())
     this._createdBy = this.createdBy
   }
+
   public canUpdate(): boolean {
     if (!this.canCreate()) return false
     if (!this.createdAt) return false
